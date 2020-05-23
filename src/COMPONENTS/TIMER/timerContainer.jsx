@@ -1,7 +1,7 @@
 import React from 'react';
 import Timer from "./timer";
 import {connect} from 'react-redux';
-import {startTimer, updateDuration} from "../../REDUX/timerReducer";
+import {startTimer, stopTimer, updateDuration} from "../../REDUX/timerReducer";
 import {msToTimeString} from "./msToTimeString";
 
 
@@ -12,7 +12,7 @@ class TimerContainer extends React.Component {
     }
 
     render() {
-        let timeLeft= this.props.timeLeft * 1000;
+        let timeLeft = this.props.timeLeft * 1000;
         let timeString = msToTimeString(timeLeft);
         return <Timer
             isStarted={this.props.isStarted}
@@ -21,6 +21,7 @@ class TimerContainer extends React.Component {
             updateDuration={this.props.updateDuration}
             startTimer={this.startTimer}
             showTomato={this.props.showTomato}
+            stop={this.stop}
         />
     }
 
@@ -28,7 +29,9 @@ class TimerContainer extends React.Component {
         let minutes = this.props.timerDuration;
         this.props.startTimer(minutes);
     };
-
+    stop = () => {
+        this.props.stopTimer(this.props.timerId);
+    };
 }
 
 let mapStateToProps = (state) => {
@@ -36,13 +39,15 @@ let mapStateToProps = (state) => {
         isStarted: state.timerPage.isStarted,
         timeLeft: state.timerPage.timeLeft,
         timerDuration: state.timerPage.timerDuration,
+        timerId: state.timerPage.timerId,
         showTomato: state.timerPage.showTomato
     }
 };
 
 let connected = connect(mapStateToProps, {
         startTimer,
-        updateDuration
+        updateDuration,
+        stopTimer
     }
 )(TimerContainer);
 
