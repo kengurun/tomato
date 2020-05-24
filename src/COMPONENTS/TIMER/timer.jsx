@@ -15,8 +15,8 @@ let Timer = (props) => {
                 <p>Количество минут:</p>
                 <input type="number"
                        value={props.timerDuration}
-                       onChange={onChange} min='0' max='15'/>
-                <p></p>
+                       onChange={onChange} min='0.1' max='15'/>
+                <p> </p>
             </div>
             {
                 props.isStarted

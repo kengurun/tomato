@@ -66,34 +66,34 @@ export const updateDuration = (duration) => {
 export const startTimer = (minutes) => {
     return (dispatch) => {
         let count = minutes * 60; // переводим минуты в секунды
+        dispatch(setShowTomato(false));
         dispatch(setTimerStatus(true));
         dispatch(setTimeLeft(count));
         console.log('Timer started from ' + count + ' seconds');
 
         let timerId = setInterval(() => {
-            console.log('TimerID=' + timerId);
             count = count - 1;
             if (count <= 0) {
-                stopTimer(timerId)
+                dispatch(stopTimer(timerId));
+                dispatch(setShowTomato(true));
             } else {
                 dispatch(setTimeLeft(count));
-                // console.log(count);
             }
+            console.log(count);
         }, 1000);
         dispatch(setTimerId(timerId));
+        console.log('TimerID: ' + timerId);
     };
 };
 
 export const stopTimer = (timerId) => {
     return (dispatch) => {
-        // debugger
         clearInterval(timerId);
         dispatch(setTimerStatus(false));
         dispatch(setTimeLeft(0));
-        dispatch(setShowTomato(true));
         console.log('Timer stopped.');
     }
-}
+};
 
 export default timerReducer;
 
