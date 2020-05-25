@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import s from './timer.module.css';
 import tomato from '../../ASSETS/IMAGES/tomato.gif';
 import Button from '@material-ui/core/Button';
@@ -6,6 +6,9 @@ import Button from '@material-ui/core/Button';
 let TimerWithHooks = (props) => {
     // debugger;
     let [timerDuration, setTimerDuration] = useState(1);
+    // useEffect(() => {
+    //     console.log('useEffect');
+    // }, [timerDuration]);
     let onChange = (e) => {
         setTimerDuration(e.target.value);
     };

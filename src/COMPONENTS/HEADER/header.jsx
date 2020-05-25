@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import TemporaryDrawer from "./Drawer";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,11 +23,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (props) => {
     const classes = useStyles();
+    // debugger
     return (
         <AppBar position="static">
             <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                    <MenuIcon />
+                <IconButton edge="start" className={classes.menuButton} color="inherit">
+
+                    <TemporaryDrawer/>
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
                     TomatoTimer

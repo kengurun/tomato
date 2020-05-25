@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from "./header";
 import {connect} from 'react-redux';
+import TemporaryDrawer from "./Drawer";
 
 const HeaderContainer = (props) => {
     return (
@@ -8,6 +9,7 @@ const HeaderContainer = (props) => {
             <Header
                 isAuth={props.isAuth}
             />
+            {/*<TemporaryDrawer />*/}
         </div>
     )
 };
