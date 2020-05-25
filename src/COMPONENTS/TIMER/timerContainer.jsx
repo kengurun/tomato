@@ -1,44 +1,30 @@
 import React from 'react';
-import Timer from "./timer";
+import TimerWithHooks from "./timerWithHooks";
 import {connect} from 'react-redux';
-import {startTimer, stopTimer, updateDuration} from "../../REDUX/timerReducer";
+import {startTimer, stopTimer} from "../../REDUX/timerReducer";
 import {msToTimeString} from "./msToTimeString";
 
 
-class TimerContainer extends React.Component {
-
-    componentDidMount() {
-        this.props.updateDuration(this.props.timerDuration)
-    }
-
-    render() {
-        let timeLeft = this.props.timeLeft * 1000;
-        let timeString = msToTimeString(timeLeft);
-        return <Timer
-            isStarted={this.props.isStarted}
-            timeLeft={timeString}
-            timerDuration={this.props.timerDuration}
-            updateDuration={this.props.updateDuration}
-            startTimer={this.startTimer}
-            showTomato={this.props.showTomato}
-            stop={this.stop}
-        />
-    }
-
-    startTimer = () => {
-        let minutes = this.props.timerDuration;
-        this.props.startTimer(minutes);
+const TimerContainer = (props) => {
+    const stop = () => {
+        props.stopTimer(props.timerId);
     };
-    stop = () => {
-        this.props.stopTimer(this.props.timerId);
-    };
-}
+    let timeLeftMilisec = props.timeLeft * 1000;
+    let timeString = msToTimeString(timeLeftMilisec);
+    return <TimerWithHooks
+        isStarted={props.isStarted}
+        timeLeft={timeString}
+        timerDuration={props.timerDuration}
+        startTimer={props.startTimer}
+        showTomato={props.showTomato}
+        stop={stop}
+    />
+};
 
 let mapStateToProps = (state) => {
     return {
         isStarted: state.timerPage.isStarted,
         timeLeft: state.timerPage.timeLeft,
-        timerDuration: state.timerPage.timerDuration,
         timerId: state.timerPage.timerId,
         showTomato: state.timerPage.showTomato
     }
@@ -46,7 +32,6 @@ let mapStateToProps = (state) => {
 
 let connected = connect(mapStateToProps, {
         startTimer,
-        updateDuration,
         stopTimer
     }
 )(TimerContainer);

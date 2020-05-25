@@ -1,13 +1,11 @@
 let SET_TIMER_STATUS = 'SET_TIMER_STATUS';
 let SET_TIME_LEFT = 'SET_TIME_LEFT';
-let SET_TIMER_DURATION = 'SET_TIMER_DURATION';
 let SET_SHOW_TOMATO = 'SET_SHOW_TOMATO';
 let SET_TIMER_ID = 'SET_TIMER_ID';
 
 let initialState = {
     isStarted: false,
     timeLeft: 0,
-    timerDuration: 1,
     timerId: null,
     showTomato: false
 };
@@ -18,12 +16,6 @@ let timerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 timeLeft: action.time
-            }
-        }
-        case SET_TIMER_DURATION: {
-            return {
-                ...state,
-                timerDuration: action.duration
             }
         }
         case SET_SHOW_TOMATO: {
@@ -51,17 +43,8 @@ let timerReducer = (state = initialState, action) => {
 
 export const setTimeLeft = (time) => ({type: SET_TIME_LEFT, time: time});
 export const setTimerStatus = (isStarted) => ({type: SET_TIMER_STATUS, isStarted: isStarted});
-export const setTimerDuration = (duration) => ({type: SET_TIMER_DURATION, duration: duration});
 export const setTimerId = (id) => ({type: SET_TIMER_ID, id: id});
 export const setShowTomato = (show) => ({type: SET_SHOW_TOMATO, show: show});
-
-export const updateDuration = (duration) => {
-    return (dispatch) => {
-        dispatch(setTimerDuration(duration));
-        dispatch(setTimeLeft(duration * 60));
-        dispatch(setShowTomato(false));
-    }
-};
 
 export const startTimer = (minutes) => {
     return (dispatch) => {
