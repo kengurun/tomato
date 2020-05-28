@@ -1,15 +1,14 @@
 import React from 'react';
 import Header from "./header";
 import {connect} from 'react-redux';
-import TemporaryDrawer from "./Drawer";
 
 const HeaderContainer = (props) => {
     return (
         <div>
             <Header
                 isAuth={props.isAuth}
+                handleDrawerOpen={props.handleDrawerOpen}
             />
-            {/*<TemporaryDrawer />*/}
         </div>
     )
 };
