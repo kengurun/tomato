@@ -54,13 +54,13 @@ let TimerWithHooks = (props) => {
             <div className={classes.content}>
                 <Grid container
                       spacing={0}
-                      align="center"
-                      justify="center"
-                      alignContent="center"
+                      align="center" // выравнивает дочерние элементы внутри элемента сетки
+                      justify="center" // выравнивает вдоль главной оси (column) за счет распределения своб места
+                      alignContent="center" // выравнивает вдолб поперечной оси (горизонтально)
                       direction="column"
                 >
-                    <Grid item lg={12}>
-                        <Paper className={classes.paper} lg={6}>
+                    <Grid item >
+                        <Paper className={classes.paper}>
                             <Grid container direction="column" spacing={3}>
                                 <Grid item>
                                     <div>
