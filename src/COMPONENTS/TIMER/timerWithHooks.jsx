@@ -7,8 +7,27 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {makeStyles} from '@material-ui/core/styles';
 import clsx from 'clsx';
+import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import MenuItem from '@material-ui/core/MenuItem';
 
 let TimerWithHooks = (props) => {
+    const durations = [
+        {
+            value: 0.1,
+            label: '6 сек'
+        },
+        {
+            value: 1,
+            label: '1 мин'
+        },
+        {
+            value: 15,
+            label: '15 мин'
+        }
+    ];
+
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
@@ -39,7 +58,7 @@ let TimerWithHooks = (props) => {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-    let [timerDuration, setTimerDuration] = useState(1);
+    let [timerDuration, setTimerDuration] = useState(0.1);
     // useEffect(() => {
     //     console.log('useEffect');
     // }, [timerDuration]);
@@ -59,19 +78,32 @@ let TimerWithHooks = (props) => {
                       alignContent="center" // выравнивает вдолб поперечной оси (горизонтально)
                       direction="column"
                 >
-                    <Grid item >
+                    <Grid item>
                         <Paper className={classes.paper}>
                             <Grid container direction="column" spacing={3}>
                                 <Grid item>
-                                    <div>
-                                        Количество минут:
-                                    </div>
-                                </Grid>
-                                <Grid item>
                                     <div className={s.input}>
-                                        <input type="number"
-                                               value={timerDuration}
-                                               onChange={onChange} min='0.1' max='15'/>
+                                        <TextField
+                                            // InputProps={{
+                                            //     endAdornment: <InputAdornment position="end">минут</InputAdornment>,
+                                            // }}
+                                            // label="Duration"
+                                            helperText="Задайте длительность"
+                                            variant="outlined"
+                                            type="number"
+                                            value={timerDuration}
+                                            onChange={onChange}
+                                            inputProps={{"min": 0.1, "max": 15}}
+                                            select
+                                        >
+                                            {
+                                                durations.map((option) => (
+                                                <MenuItem value={option.value}>
+                                                {option.label}
+                                                </MenuItem>
+                                                ))
+                                            }
+                                        </TextField>
                                     </div>
                                 </Grid>
                                 <Grid item>
